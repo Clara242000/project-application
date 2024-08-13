@@ -1,44 +1,23 @@
-// src/components/Navbar.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
+import '../styles/Navbar.css'; // Importă stilurile specifice pentru Navbar
 
 function Navbar() {
   return (
-    <nav style={styles.navbar}>
-      <ul style={styles.navList}>
-        <li style={styles.navItem}>
-          <Link to="/" style={styles.navLink}>Home</Link>
+    <nav className="navbar">
+      <ul className="nav-list">
+        <li className="nav-item">
+          <Link to="/" className="nav-link">Home</Link>
         </li>
-        <li style={styles.navItem}>
-          <Link to="/add" style={styles.navLink}>Add Portfolio Item</Link>
+        <li className="nav-item">
+          <Link to="/add" className="nav-link">Add Portfolio Item</Link>
+        </li>
+        <li className="nav-item">
+          <Link to="/edit/1" className="nav-link">Edit Portfolio Item</Link> {/* Exemplu static, va trebui actualizat dinamic */}
         </li>
       </ul>
     </nav>
   );
 }
-
-const styles = {
-  navbar: {
-    backgroundColor: '#333',
-    padding: '10px 20px',
-  },
-  navList: {
-    listStyleType: 'none',
-    display: 'flex',
-    justifyContent: 'space-around',
-    margin: '0',
-    padding: '0',
-  },
-  navItem: {
-    margin: '0 10px',
-  },
-  navLink: {
-    color: '#fff',
-    textDecoration: 'none',
-    fontSize: '16px',
-    padding: '5px 10px',
-    transition: 'color 0.3s',
-  }
-};
 
 export default Navbar;

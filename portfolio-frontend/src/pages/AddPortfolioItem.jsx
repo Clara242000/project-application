@@ -4,26 +4,16 @@ import { useNavigate } from 'react-router-dom';
 import '../styles/AddPortfolioItem.css';
 
 function AddPortfolioItem() {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [imageFile, setImageFile] = useState(null);
-  const [clientLink, setClientLink] = useState('');
+  const [item, setItem] = useState({
+    name: '',
+    description: '',
+    image: ''
+  });
   const navigate = useNavigate();
-
-  const handleImageChange = (e) => {
-    setImageFile(e.target.files[0]);
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append('title', title);
-    formData.append('description', description);
-    formData.append('image', imageFile);
-    formData.append('clientLink', clientLink);
-    formData.append('status', 'visible');
-
-    axios.post('http://localhost:3000/portfolio', formData)
+    axios.post('http://localhost:3000/portfolio', item)
       .then(() => navigate('/'))
       .catch(error => console.error('Error adding item:', error));
   };
@@ -32,22 +22,29 @@ function AddPortfolioItem() {
     <div className="add-form-container">
       <h1>Add Portfolio Item</h1>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label>Title</label>
-          <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} required />
-        </div>
-        <div>
-          <label>Description</label>
-          <textarea value={description} onChange={(e) => setDescription(e.target.value)} required></textarea>
-        </div>
-        <div>
-          <label>Image</label>
-          <input type="file" onChange={handleImageChange} required />
-        </div>
-        <div>
-          <label>Client Link</label>
-          <input type="text" value={clientLink} onChange={(e) => setClientLink(e.target.value)} required />
-        </div>
+        <label>
+          Name:
+          <input
+            type="text"
+            value={item.name}
+            onChange={(e) => setItem({ ...item, name: e.target.value })}
+          />
+        </label>
+        <label>
+          Description:
+          <textarea
+            value={item.description}
+            onChange={(e) => setItem({ ...item, description: e.target.value })}
+          />
+        </label>
+        <label>
+          Image URL:
+          <input
+            type="text"
+            value={item.image}
+            onChange={(e) => setItem({ ...item, image: e.target.value })}
+          />
+        </label>
         <button type="submit">Add Item</button>
       </form>
     </div>

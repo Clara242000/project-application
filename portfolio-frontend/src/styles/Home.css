@@ -1,39 +1,66 @@
-/* src/pages/Home.css */
-.artist-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
+.home {
+  padding: 20px;
+  text-align: center;
+}
+
+.artist-card {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  max-width: 600px;
+  margin: 0 auto;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.artist-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.artist-name {
+  font-size: 24px;
+  margin: 15px 0;
+}
+
+.artist-link {
+  color: #007bff;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+.artist-link:hover {
+  text-decoration: underline;
+}
+
+.artist-work-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.artist-work-image {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  border-radius: 8px;
+}
+
+.artist-description {
+  font-size: 16px;
+  line-height: 1.5;
+  margin-top: 15px;
+}
+
+@media (max-width: 768px) {
+  .artist-card {
+    padding: 10px;
   }
   
-  .artist-item {
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 20px;
-    text-align: center;
+  .artist-work-gallery {
+    flex-direction: column;
+    align-items: center;
   }
-  
-  .artist-image {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
-  }
-  
-  .artist-link {
-    display: inline-block;
-    margin-top: 10px;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 4px;
-    transition: background-color 0.3s;
-  }
-  
-  .artist-link:hover {
-    background-color: #0056b3;
-  }
-  
+}
