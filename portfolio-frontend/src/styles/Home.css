@@ -1,66 +1,158 @@
+/* Stilizare pentru pagina principală */
 .home {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   padding: 20px;
-  text-align: center;
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
 }
 
 .artist-card {
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 15px;
-  max-width: 600px;
-  margin: 0 auto;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 20px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
 }
 
 .artist-image {
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
+  max-width: 300px;
+  border-radius: 10px;
+  object-fit: cover;
+  margin-right: 20px;
+  margin-top: 95px;
+}
+
+.artist-info {
+  flex: 1;
+  min-width: 300px;
+  margin-right: 20px;
 }
 
 .artist-name {
-  font-size: 24px;
-  margin: 15px 0;
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 10px;
+  text-align: center; /* Centrăm textul */
 }
 
 .artist-link {
+  display: inline-block;
+  font-size: 1rem;
   color: #007bff;
   text-decoration: none;
-  font-size: 18px;
+  margin-bottom: 15px;
+  text-align: center; /* Centrăm linkul */
+  margin-left: 342px;
+  
 }
 
 .artist-link:hover {
   text-decoration: underline;
 }
 
+.artist-description {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #555;
+  margin-bottom: 20px;
+  text-align: center; /* Centrăm descrierea */
+}
+
+.gallery-title {
+  font-size: 1.5rem;
+  color: #333;
+  margin: 20px 0;
+  text-align: center; /* Centrăm titlul galeriei */
+}
+
 .artist-work-gallery {
   display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin: 15px 0;
+  flex-direction: row;
+  flex-wrap: wrap; /* Permitem să se împacheteze lucrările */
+  gap: 35px;
+  justify-content: center; /* Centrăm galeria */
+  margin-top: 50px;
 }
 
 .artist-work-image {
   width: 100%;
-  max-width: 300px;
-  height: auto;
-  border-radius: 8px;
+  max-width: 200px;
+  border-radius: 10px;
+  object-fit: cover;
 }
 
-.artist-description {
-  font-size: 16px;
-  line-height: 1.5;
-  margin-top: 15px;
-}
-
-@media (max-width: 768px) {
+/* Media Queries pentru dispozitive mai mici */
+@media (max-width: 1024px) { /* Laptopuri mai mici și tablete mari */
   .artist-card {
-    padding: 10px;
+    flex-direction: column;
+    align-items: center;
   }
-  
+
+  .artist-image {
+    margin-right: 0;
+    margin-top: 20px;
+  }
+
+  .artist-info {
+    text-align: center; /* Centrăm informațiile artistului */
+    margin-right: 0;
+  }
+}
+
+@media (max-width: 768px) { /* Tablete */
+  .artist-name {
+    font-size: 1.5rem;
+  }
+
+  .artist-link {
+    font-size: 0.9rem;
+  }
+
+  .artist-description {
+    font-size: 0.9rem;
+  }
+
+  .gallery-title {
+    font-size: 1.2rem;
+  }
+
   .artist-work-gallery {
     flex-direction: column;
     align-items: center;
+  }
+
+  .artist-work-image {
+    max-width: 150px;
+  }
+}
+
+@media (max-width: 480px) { /* Telefoane */
+  .artist-name {
+    font-size: 1.2rem;
+  }
+
+  .artist-link {
+    font-size: 0.8rem;
+  }
+
+  .artist-description {
+    font-size: 0.8rem;
+  }
+
+  .gallery-title {
+    font-size: 1rem;
+  }
+
+  .artist-work-image {
+    max-width: 120px;
   }
 }

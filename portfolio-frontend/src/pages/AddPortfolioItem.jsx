@@ -88,7 +88,7 @@ const AddPortfolioItem = () => {
       </form>
 
       <div className="existing-items">
-        <h2>Existing Items</h2>
+        <h2>Edit Items</h2>
         {items.map(item => (
           <div key={item.id}>
             <h3>{item.title}</h3>
