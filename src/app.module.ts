@@ -1,19 +1,21 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PortfolioModule } from './portfolio/portfolio.module';
-import { PortfolioItem } from './portfolio-item/portfolio-item.entity';
+import { PortfolioItem } from './portfolio/portfolio.entity';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-      type: 'sqlite',
-      database: 'database.sqlite',
+      type: 'postgres',
+      host: 'localhost',
+      port: 5432,
+      username: 'user',
+      password: 'password',
+      database: 'portfolio',
       entities: [PortfolioItem],
       synchronize: true,
     }),
     PortfolioModule,
   ],
-  controllers: [],
-  providers: [],
 })
 export class AppModule {}

@@ -2,22 +2,17 @@ import {
   Controller,
   Get,
   Post,
-  Body,
-  Param,
-  Delete,
   Put,
+  Delete,
+  Param,
+  Body,
 } from '@nestjs/common';
-import { PortfolioService } from './portfolio.service'; // Asigură-te că fișierul este la locația corectă
-import { PortfolioItem } from '../portfolio-item/portfolio-item.entity'; // Asigură-te că fișierul este la locația corectă
+import { PortfolioService } from './portfolio.service';
+import { PortfolioItem } from './portfolio.entity';
 
 @Controller('portfolio')
 export class PortfolioController {
   constructor(private readonly portfolioService: PortfolioService) {}
-
-  @Post()
-  create(@Body() portfolioItem: PortfolioItem): Promise<PortfolioItem> {
-    return this.portfolioService.create(portfolioItem);
-  }
 
   @Get()
   findAll(): Promise<PortfolioItem[]> {
@@ -29,10 +24,17 @@ export class PortfolioController {
     return this.portfolioService.findOne(id);
   }
 
+  @Post()
+  create(
+    @Body() portfolioItem: Partial<PortfolioItem>,
+  ): Promise<PortfolioItem> {
+    return this.portfolioService.create(portfolioItem);
+  }
+
   @Put(':id')
   update(
     @Param('id') id: number,
-    @Body() portfolioItem: PortfolioItem,
+    @Body() portfolioItem: Partial<PortfolioItem>,
   ): Promise<PortfolioItem> {
     return this.portfolioService.update(id, portfolioItem);
   }

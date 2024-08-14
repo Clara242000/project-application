@@ -1,21 +1,20 @@
+// src/App.jsx
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from './pages/Home';
-import AddPortfolioItem from './pages/AddPortfolioItem';
-import EditPortfolioItem from './pages/EditPortfolioItem';
-import Navbar from './components/Navbar';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Home from '../src/pages/Home';
+import AddPortfolioItem from '../src/pages/AddPortfolioItem';
+import Navbar from '../src/components/Navbar';
 
-const App = () => {
+function App() {
   return (
     <Router>
-      <Navbar /> {/* Include Navbar aici pentru a fi vizibil pe toate paginile */}
+      <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/add" element={<AddPortfolioItem />} />
-        <Route path="/edit/:id" element={<EditPortfolioItem />} />
+        <Route path="/add-portfolio-item" element={<AddPortfolioItem />} />
       </Routes>
     </Router>
   );
-};
+}
 
 export default App;

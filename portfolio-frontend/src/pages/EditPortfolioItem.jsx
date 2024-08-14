@@ -1,68 +1,81 @@
+// src/pages/EditPortfolioItem.jsx
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
-import '../styles/EditPortfolioItem.css';
+import axios from 'axios';
 
-function EditPortfolioItem() {
-  const { id } = useParams();
-  const [item, setItem] = useState(null);
-  const [loading, setLoading] = useState(true); // Adăugați starea de încărcare
-  const navigate = useNavigate();
+const EditPortfolioItem = () => {
+  const { id } = useParams(); // Obține id-ul din URL
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [image, setImage] = useState('');
+  const navigate = useNavigate(); // Folosit pentru redirecționare după actualizare
 
   useEffect(() => {
-    axios.get(`http://localhost:3000/portfolio/${id}`)
-      .then(response => {
-        setItem(response.data);
-        setLoading(false); // Datele au fost primite, opriți încărcarea
-      })
-      .catch(error => {
+    if (!id) {
+      console.error('No ID found in URL');
+      return;
+    }
+
+    const fetchItem = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3000/portfolio/${id}`);
+        const { title, description, image } = response.data;
+        setTitle(title);
+        setDescription(description);
+        setImage(image);
+      } catch (error) {
         console.error('Error fetching item:', error);
-        setLoading(false); // A apărut o eroare, opriți încărcarea
-      });
+      }
+    };
+
+    fetchItem();
   }, [id]);
 
-  const handleUpdate = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    axios.put(`http://localhost:3000/portfolio/${id}`, item)
-      .then(() => navigate('/'))
-      .catch(error => console.error('Error updating item:', error));
+    try {
+      await axios.put(`http://localhost:3000/portfolio/${id}`, { title, description, image });
+      alert('Item updated successfully!');
+      navigate('/'); // Redirecționează utilizatorul după actualizare
+    } catch (error) {
+      console.error('Error updating item:', error);
+    }
   };
 
-  if (loading) {
-    return <div>Loading...</div>; // Afișați mesajul de încărcare
-  }
-
   return (
-    <div className="edit-form-container">
+    <div className="edit-portfolio-item">
       <h1>Edit Portfolio Item</h1>
-      <form onSubmit={handleUpdate}>
-        <label>
-          Name:
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label>Title:</label>
           <input
             type="text"
-            value={item.name}
-            onChange={(e) => setItem({ ...item, name: e.target.value })}
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            required
           />
-        </label>
-        <label>
-          Description:
+        </div>
+        <div>
+          <label>Description:</label>
           <textarea
-            value={item.description}
-            onChange={(e) => setItem({ ...item, description: e.target.value })}
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            required
           />
-        </label>
-        <label>
-          Image URL:
+        </div>
+        <div>
+          <label>Image URL:</label>
           <input
             type="text"
-            value={item.image}
-            onChange={(e) => setItem({ ...item, image: e.target.value })}
+            value={image}
+            onChange={(e) => setImage(e.target.value)}
+            required
           />
-        </label>
+        </div>
         <button type="submit">Update Item</button>
       </form>
     </div>
   );
-}
+};
 
 export default EditPortfolioItem;

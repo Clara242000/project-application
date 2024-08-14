@@ -1,54 +1,137 @@
-import React, { useState } from 'react';
+// src/pages/AddPortfolioItem.jsx
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 import '../styles/AddPortfolioItem.css';
 
-function AddPortfolioItem() {
-  const [item, setItem] = useState({
-    name: '',
-    description: '',
-    image: ''
-  });
-  const navigate = useNavigate();
+const AddPortfolioItem = () => {
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [image, setImage] = useState('');
+  const [items, setItems] = useState([]);
+  const [editingItem, setEditingItem] = useState(null);
 
-  const handleSubmit = (e) => {
+  // Fetch all items on component mount
+  useEffect(() => {
+    const fetchItems = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/portfolio');
+        setItems(response.data);
+      } catch (error) {
+        console.error('Error fetching items:', error);
+      }
+    };
+
+    fetchItems();
+  }, []);
+
+  // Add a new item
+  const handleAdd = async (e) => {
     e.preventDefault();
-    axios.post('http://localhost:3000/portfolio', item)
-      .then(() => navigate('/'))
-      .catch(error => console.error('Error adding item:', error));
+    try {
+      const response = await axios.post('http://localhost:3000/portfolio', {
+        title,
+        description,
+        image,
+      });
+      setItems([...items, response.data]);
+      setTitle('');
+      setDescription('');
+      setImage('');
+    } catch (error) {
+      console.error('Error adding item:', error);
+    }
+  };
+
+  // Edit an existing item
+  const handleEdit = async (id) => {
+    try {
+      const updatedItem = {
+        title,
+        description,
+        image,
+      };
+      await axios.put(`http://localhost:3000/portfolio/${id}`, updatedItem);
+      setItems(items.map(item => (item.id === id ? { ...item, ...updatedItem } : item)));
+      setEditingItem(null);
+    } catch (error) {
+      console.error('Error updating item:', error);
+    }
+  };
+
+  // Delete an item
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`http://localhost:3000/portfolio/${id}`);
+      setItems(items.filter(item => item.id !== id));
+    } catch (error) {
+      console.error('Error deleting item:', error);
+    }
   };
 
   return (
-    <div className="add-form-container">
-      <h1>Add Portfolio Item</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Name:
-          <input
-            type="text"
-            value={item.name}
-            onChange={(e) => setItem({ ...item, name: e.target.value })}
-          />
-        </label>
-        <label>
-          Description:
-          <textarea
-            value={item.description}
-            onChange={(e) => setItem({ ...item, description: e.target.value })}
-          />
-        </label>
-        <label>
-          Image URL:
-          <input
-            type="text"
-            value={item.image}
-            onChange={(e) => setItem({ ...item, image: e.target.value })}
-          />
-        </label>
+    <div className="add-portfolio-item-container">
+      <h2>Add Portfolio Item</h2>
+      <form onSubmit={handleAdd}>
+        <div>
+          <label>Title:</label>
+          <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} required />
+        </div>
+        <div>
+          <label>Description:</label>
+          <textarea value={description} onChange={(e) => setDescription(e.target.value)} required />
+        </div>
+        <div>
+          <label>Image URL:</label>
+          <input type="text" value={image} onChange={(e) => setImage(e.target.value)} required />
+        </div>
         <button type="submit">Add Item</button>
       </form>
+
+      <div className="existing-items">
+        <h2>Existing Items</h2>
+        {items.map(item => (
+          <div key={item.id}>
+            <h3>{item.title}</h3>
+            <p>{item.description}</p>
+            <img src={item.image} alt={item.title} />
+            <button onClick={() => {
+              setTitle(item.title);
+              setDescription(item.description);
+              setImage(item.image);
+              setEditingItem(item.id);
+            }}>
+              Edit
+            </button>
+            <button onClick={() => handleDelete(item.id)}>Delete</button>
+          </div>
+        ))}
+      </div>
+
+      {editingItem && (
+        <div className="edit-form-container">
+          <h2>Edit Item</h2>
+          <form onSubmit={(e) => {
+            e.preventDefault();
+            handleEdit(editingItem);
+          }}>
+            <div>
+              <label>Title:</label>
+              <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} required />
+            </div>
+            <div>
+              <label>Description:</label>
+              <textarea value={description} onChange={(e) => setDescription(e.target.value)} required />
+            </div>
+            <div>
+              <label>Image URL:</label>
+              <input type="text" value={image} onChange={(e) => setImage(e.target.value)} required />
+            </div>
+            <button type="submit">Update Item</button>
+          </form>
+        </div>
+      )}
     </div>
   );
-}
+};
 
 export default AddPortfolioItem;
