@@ -1,4 +1,4 @@
-/* src/styles/AddPortfolioItem.css */
+
 .add-portfolio-item-container {
   width: 80%;
   margin: 0 auto;
@@ -135,8 +135,8 @@ form button {
   margin-bottom: 20px;
 }
 
-/* Media Queries pentru dispozitive mai mici */
-@media (max-width: 768px) { /* Tablete și laptopuri mici */
+
+@media (max-width: 768px) { 
   h2 {
     font-size: 1.2rem;
   }
@@ -155,7 +155,7 @@ form button {
   }
 }
 
-@media (max-width: 480px) { /* Telefoane */
+@media (max-width: 480px) {
   h2 {
     font-size: 1rem;
   }

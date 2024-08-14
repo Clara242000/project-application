@@ -1,4 +1,4 @@
-// src/pages/AddPortfolioItem.jsx
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../styles/AddPortfolioItem.css';
@@ -10,7 +10,7 @@ const AddPortfolioItem = () => {
   const [items, setItems] = useState([]);
   const [editingItem, setEditingItem] = useState(null);
 
-  // Fetch all items on component mount
+  
   useEffect(() => {
     const fetchItems = async () => {
       try {
@@ -24,7 +24,7 @@ const AddPortfolioItem = () => {
     fetchItems();
   }, []);
 
-  // Add a new item
+  
   const handleAdd = async (e) => {
     e.preventDefault();
     try {
@@ -42,7 +42,7 @@ const AddPortfolioItem = () => {
     }
   };
 
-  // Edit an existing item
+ 
   const handleEdit = async (id) => {
     try {
       const updatedItem = {
@@ -58,7 +58,7 @@ const AddPortfolioItem = () => {
     }
   };
 
-  // Delete an item
+  
   const handleDelete = async (id) => {
     try {
       await axios.delete(`http://localhost:3000/portfolio/${id}`);

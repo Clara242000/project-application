@@ -29,6 +29,4 @@ describe('PortfolioService', () => {
   it('should be defined', () => {
     expect(service).toBeDefined();
   });
-
-  // Adaugă teste suplimentare aici
 });

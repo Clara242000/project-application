@@ -1,14 +1,14 @@
-// src/pages/EditPortfolioItem.jsx
+
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const EditPortfolioItem = () => {
-  const { id } = useParams(); // Obține id-ul din URL
+  const { id } = useParams(); 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [image, setImage] = useState('');
-  const navigate = useNavigate(); // Folosit pentru redirecționare după actualizare
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     if (!id) {
@@ -36,7 +36,7 @@ const EditPortfolioItem = () => {
     try {
       await axios.put(`http://localhost:3000/portfolio/${id}`, { title, description, image });
       alert('Item updated successfully!');
-      navigate('/'); // Redirecționează utilizatorul după actualizare
+      navigate('/'); 
     } catch (error) {
       console.error('Error updating item:', error);
     }

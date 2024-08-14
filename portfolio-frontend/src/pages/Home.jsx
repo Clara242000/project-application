@@ -1,6 +1,5 @@
-// src/pages/Home.jsx
 import React from 'react';
-import '../styles/Home.css'; // Importă stilurile specifice pentru Home
+import '../styles/Home.css'; 
 
 const artist = {
   name: 'Lois van Baarle',

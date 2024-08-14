@@ -1,7 +1,7 @@
-// src/components/Navbar.jsx
+
 import React from 'react';
 import { Link } from 'react-router-dom';
-import '../styles/Navbar.css'; // Asigură-te că stilurile sunt corecte
+import '../styles/Navbar.css'; 
 
 const Navbar = () => {
   return (

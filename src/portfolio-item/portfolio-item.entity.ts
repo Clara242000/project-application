@@ -18,5 +18,5 @@ export class PortfolioItem {
   clientLink: string;
 
   @Column()
-  status: string; // 'hidden' or 'visible'
+  status: string;
 }

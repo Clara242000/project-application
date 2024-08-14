@@ -1,8 +1,8 @@
-// src/index.jsx
+
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
-import './styles/global.css'; // Asigură-te că stilurile sunt importate aici
+import './styles/global.css'; 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
